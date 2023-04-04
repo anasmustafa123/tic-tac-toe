@@ -31,7 +31,12 @@ const game = (player1, player2, level) => {
     if (lastMove == 1) lastMove = 2;
     else lastMove = 1;
   };
-  const isDraw = () => {};
+  const isDraw = () => {
+    for (let i = 1;i<gameBoard.length;i++){
+        if(!gameBoard[i]) return false
+    } 
+    return true;
+  };
   const isWinner = (symbolNum) => {
     return (
       isDiagonalWinning(symbolNum) ||
