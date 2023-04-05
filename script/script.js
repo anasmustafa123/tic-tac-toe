@@ -32,9 +32,9 @@ const game = (player1, player2, level) => {
     else lastMove = 1;
   };
   const isDraw = () => {
-    for (let i = 1;i<gameBoard.length;i++){
-        if(!gameBoard[i]) return false
-    } 
+    for (let i = 1; i < gameBoard.length; i++) {
+      if (!gameBoard[i]) return false;
+    }
     return true;
   };
   const isWinner = (symbolNum) => {
