@@ -89,3 +89,38 @@ const game = (player1, player2, level) => {
   };
   return { makeAMove, clearGrid, result };
 };
+
+const displayController = (() => {
+  const startNewGame = (
+    player1Name,
+    player1Symbol,
+    player2Name,
+    player2Symbol
+  ) => {
+    const player1x = document.querySelector(".player1 #player1-x.player1-x");
+    const player1y = document.querySelector(".player1 #player1-y.player1-y");
+    const player2x = document.querySelector(".player2 #player2-x.player1-y");
+    const player2y = document.querySelector(".player2 #player2-y.player1-x");
+
+    player1x.addEventListener("click", () => {
+      player2y.checked = true;
+    });
+    player1y.addEventListener("click", () => {
+      player2x.checked = true;
+    });
+    player2x.addEventListener("click", () => {
+      player1y.checked = true;
+    });
+    player2y.addEventListener("click", () => {
+      player1x.checked = true;
+    });
+    let player1 = player(player1Name, player1Symbol);
+    let player2 = player(player2Name, player2Symbol);
+    let newGame = game(player1, player2,1);
+    return newGame;
+  };
+  return { startNewGame };
+})();
+
+
+displayController.startNewGame();
