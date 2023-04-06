@@ -6,9 +6,9 @@ const player = (name, symbolNum) => {
   return { getName, getSymbolNum };
 };
 
-const game = (player1, player2, level) => {
+const game = (player1, player2, size) => {
   var lastMove = 2; /*means that player 1 will start*/
-  let grid = level + 2;
+  let grid = size;
   let gameBoard = new Array(grid * grid + 1);
   const result = () => {
     if (isDraw) return 0;
@@ -91,36 +91,92 @@ const game = (player1, player2, level) => {
 };
 
 const displayController = (() => {
-  const startNewGame = (
-    player1Name,
-    player1Symbol,
-    player2Name,
-    player2Symbol
-  ) => {
-    const player1x = document.querySelector(".player1 #player1-x.player1-x");
-    const player1y = document.querySelector(".player1 #player1-y.player1-y");
-    const player2x = document.querySelector(".player2 #player2-x.player1-y");
-    const player2y = document.querySelector(".player2 #player2-y.player1-x");
+  const player1x = document.querySelector(".player1 #player1-x.player1-x");
+  const player1y = document.querySelector(".player1 #player1-y.player1-y");
+  const player2x = document.querySelector(".player2 #player2-x.player1-y");
+  const player2y = document.querySelector(".player2 #player2-y.player1-x");
+  const userInputInterface = document.querySelector(".user-input-container");
 
-    player1x.addEventListener("click", () => {
-      player2y.checked = true;
-    });
-    player1y.addEventListener("click", () => {
-      player2x.checked = true;
-    });
-    player2x.addEventListener("click", () => {
-      player1y.checked = true;
-    });
-    player2y.addEventListener("click", () => {
-      player1x.checked = true;
-    });
-    let player1 = player(player1Name, player1Symbol);
-    let player2 = player(player2Name, player2Symbol);
-    let newGame = game(player1, player2,1);
+  let gameSize;
+  const startGameButton = document.querySelector(
+    ".user-input-container>.start-game-button"
+  );
+  startGameButton.addEventListener("click", () => getPlayersInput());
+
+  player1x.addEventListener("click", () => {
+    player2y.checked = true;
+  });
+  player1y.addEventListener("click", () => {
+    player2x.checked = true;
+  });
+  player2x.addEventListener("click", () => {
+    player1y.checked = true;
+  });
+  player2y.addEventListener("click", () => {
+    player1x.checked = true;
+  });
+
+  const startNewGame = (player1, player2, size) => {
+    let newGame = game(player1, player2, size);
     return newGame;
   };
-  return { startNewGame };
+
+  const getGameSize = () => {
+    const sizeChoosingButtons = document.querySelectorAll(
+      "button.size-choosing"
+    );
+
+    sizeChoosingButtons.forEach((button) => {
+      const sizeWindow = document.querySelector(".size-option-container");
+      button.addEventListener("click", () => {
+        gameSize = Number(button.getAttribute("data-size"));
+        hide(sizeWindow);
+        show(userInputInterface);
+        console.log(gameSize);
+      });
+    });
+  };
+
+  const getPlayersInput = () => {
+    const player1 = document.querySelector(".user-input1>input");
+    const player2 = document.querySelector(".user-input2>input");
+    const player1SymbolOptions = document.querySelectorAll(
+      ".user-input1>.player1>input"
+    );
+    const player1Name = player1.value || "player1";
+    const player2Name = player2.value || "player2";
+    console.log(`PLAYER1Name : ${player1Name}`);
+    console.log(`PLAYER2Name : ${player2Name}`);
+    let player1Symbol;
+    let player2Symbol;
+    let symbolFlag = false;
+    player1SymbolOptions.forEach((option) => {
+      if (option.checked) {
+        symbolFlag = true;
+        player1Symbol = Number(option.value);
+        console.log(`PLAYER1sym : ${player1Symbol}`);
+        player2Symbol = (Number(option.value) + 1) % 3 || 1;
+        console.log(`player2sym : ${player2Symbol}`);
+      }
+    });
+    if (symbolFlag) {
+      hide(userInputInterface);
+      startNewGame(
+        player(player1Name, player1Symbol),
+        player(player2Name, player2Symbol),
+        gameSize
+      );
+    }
+  };
+
+  const hide = (node) => {
+    node.classList.add("hide");
+  };
+  const show = (node) => {
+    node.classList.remove("hide");
+  };
+
+  return { startNewGame, getGameSize };
 })();
 
-
-displayController.startNewGame();
+displayController.getGameSize();

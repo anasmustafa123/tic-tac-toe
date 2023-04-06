@@ -7,7 +7,7 @@
   font-family: "Lemon", cursive;
 }
 
-.level-option-container {
+.size-option-container {
   display: flex;
   position: fixed;
   left: 50%;
@@ -19,11 +19,11 @@
   z-index: 10;
   transition: 300ms ease-in-out;
 }
-.level-option-container.hide {
+.size-option-container.hide {
   transform: translate(-50%, -50%) scale(0);
   transition: 300ms ease-in-out;
 }
-div.level-container-header {
+div.size-container-header {
   top: -102px;
   position: absolute;
   z-index: 12;
@@ -34,18 +34,18 @@ div.level-container-header {
   letter-spacing: 5px;
 }
 
-.level-option-container > button {
+.size-option-container > button {
   width: 100%;
   font-size: 2.7rem;
   border: 1px solid var(--dark-blue);
   border-radius: 12px;
   background: var(--medium-blue);
 }
-.level-option-container > button:hover {
+.size-option-container > button:hover {
   background-color: lightblue;
   cursor: pointer;
 }
-.level-option-container > button:active {
+.size-option-container > button:active {
   background-color: var(--medium-blue);
 }
 
@@ -75,7 +75,7 @@ div.level-container-header {
   width: auto;
   height: auto;
   z-index: 10;
-  transition: 300ms ease-in-out;
+  transition: 600ms ease-in-out;
   align-items: center;
   gap: 32px;
   box-shadow: 0px 0px 5px 5px var(--light-blue);
