@@ -120,21 +120,22 @@ div.size-container-header {
   background: var(--medium-blue);
 }
 
-:root{
+:root {
   margin: 50px;
 }
 
-.player1,.player2{
+.player1,
+.player2 {
   display: inline-flex;
   overflow: hidden;
   border-radius: 15px;
-  box-shadow: 0 0 5px rgba(0 ,0 ,0, 0.25);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.25);
 }
-.radio__input{
+.radio__input {
   display: none;
 }
 
-.radio__label{
+.radio__label {
   box-sizing: border-box;
   padding: 8px 14px;
   background: var(--dark-blue);
@@ -147,14 +148,25 @@ div.size-container-header {
   border-right: 1px solid var(--medium-blue);
   flex: 1;
   width: 50px;
-  height:100px;
+  height: 100px;
   display: flex;
   justify-content: center;
   align-items: center;
   font-size: 32px;
 }
 
-.radio__input:checked + .radio__label{
+.radio__input:checked + .radio__label {
   background: var(--medium-blue);
   color: var(--dark-blue);
+}
+div.user-input-container div.symbol-error-message {
+  color: #ff0000;
+  align-self: center;
+  margin-top: 32px;
+  transform: scale(1);
+  transition: 300ms ease-in-out;
+}
+div.user-input-container div.symbol-error-message.hide {
+  transform: scale(0);
+  transition: 300ms ease-in-out;
 }

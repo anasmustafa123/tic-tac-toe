@@ -96,6 +96,7 @@ const displayController = (() => {
   const player2x = document.querySelector(".player2 #player2-x.player1-y");
   const player2y = document.querySelector(".player2 #player2-y.player1-x");
   const userInputInterface = document.querySelector(".user-input-container");
+  const error = document.querySelectorAll("div.user-input-container div.symbol-error-message");
 
   let gameSize;
   const startGameButton = document.querySelector(
@@ -105,15 +106,19 @@ const displayController = (() => {
 
   player1x.addEventListener("click", () => {
     player2y.checked = true;
+    error.forEach(errorMessage => hide(errorMessage))
   });
   player1y.addEventListener("click", () => {
     player2x.checked = true;
+    error.forEach(errorMessage => hide(errorMessage))
   });
   player2x.addEventListener("click", () => {
     player1y.checked = true;
+    error.forEach(errorMessage => hide(errorMessage))
   });
   player2y.addEventListener("click", () => {
     player1x.checked = true;
+    error.forEach(errorMessage => hide  (errorMessage))
   });
 
   const startNewGame = (player1, player2, size) => {
@@ -152,6 +157,8 @@ const displayController = (() => {
     let symbolFlag = false;
     player1SymbolOptions.forEach((option) => {
       if (option.checked) {
+        error.forEach(errorMessage => show(errorMessage))
+
         symbolFlag = true;
         player1Symbol = Number(option.value);
         console.log(`PLAYER1sym : ${player1Symbol}`);
@@ -166,6 +173,8 @@ const displayController = (() => {
         player(player2Name, player2Symbol),
         gameSize
       );
+    }else{
+      error.forEach(errorMessage => show(errorMessage))
     }
   };
 
