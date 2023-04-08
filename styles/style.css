@@ -1,7 +1,6 @@
 :root {
   box-sizing: border-box;
   --dark-blue: #272343;
-  --light-white: #ffffff;
   --light-blue: #e3f6f5;
   --medium-blue: #bae8e8;
   font-family: "Lemon", cursive;
@@ -94,7 +93,16 @@ div.size-container-header {
 .board-container > .board-part{
   background-color: var(--dark-blue);
   border-radius: 6px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
+
+.board-container > .board-part > img.game-component{
+  width: clamp(40px, 75% , 100px);
+  height: clamp(40px, 75% , 100px);
+}
+
 .user-input-container {
   display: flex;
   position: fixed;
