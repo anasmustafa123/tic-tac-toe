@@ -9,6 +9,7 @@ const player = (name, symbolNum) => {
 const game = (player1, player2, size) => {
   var lastMove = 2; /*means that player 1 will start*/
   let grid = size;
+  let winningMoves = []
   let gameBoard = new Array(grid * grid + 1);
 
   const result = () => {
@@ -17,9 +18,13 @@ const game = (player1, player2, size) => {
     else if (isWinner(player2.getSymbolNum())) return 2;
     else return 3;
   };
-
+  
+  const getwinningMoves=()=>{
+    return winningMoves;
+  }
   //return true if valid move
   const makeAMove = (playerMove) => {
+    console.log(getwinningMoves());
     if (playerMove <= grid * grid && !gameBoard[playerMove]) {
       /* check if clicked place is empty */
       if (lastMove === 1) {
@@ -63,25 +68,38 @@ const game = (player1, player2, size) => {
   const isDiagonalWinning = (symbolNum) => {
     let count1 = 0;
     let count2 = 0;
+    let winningMoves1 = []
+    let winningMoves2 = []
+
     for (let i = 0; i < grid; i++) {
       if (gameBoard[1 + grid * i + i] == symbolNum) {
         count1++;
+        winningMoves1.push(1 + grid * i + i);
       }
       if (gameBoard[grid + grid * i - i] == symbolNum) {
+        winningMoves2.push(grid + grid * i - i);
         count2++;
       }
     }
-    if (count1 == grid || count2 == grid) {
+    if (count1 == grid) {
+      winningMoves = winningMoves1;
       console.log("diagonal");
       return true;
-    } else return false;
+    }else if (count2 == grid){
+      winningMoves = winningMoves2;
+      console.log("diagonal");
+      return true;
+    }
+     else return false;
   };
   const isColumnsWinning = (symbolNum) => {
     for (let i = 1; i <= grid; i++) {
       let count = 0;
+      winningMoves = []
       for (let j = i; j <= grid * grid; j += grid) {
         if (gameBoard[j] == symbolNum) {
           count++;
+          winningMoves.push(j);
         }
       }
       if (count == grid) {
@@ -95,10 +113,12 @@ const game = (player1, player2, size) => {
   const isRowsWinning = (symbolNum) => {
     for (let i = 1; i < grid * grid; i += grid) {
       let count = 0;
+      winningMoves = []
       for (let j = 0; j < grid; j++) {
         console.log(`///board[${i + j}] ${gameBoard[i + j]}`);
         if (gameBoard[i + j] == symbolNum) {
           count++;
+          winningMoves.push(i+j);
         }
       }
       if (count == grid) {
@@ -111,7 +131,7 @@ const game = (player1, player2, size) => {
   const clearGrid = () => {
     gameBoard = new Array(grid * grid + 1);
   };
-  return { makeAMove, clearGrid, result, lastPlayerMoved };
+  return { makeAMove, clearGrid, result, lastPlayerMoved, getwinningMoves };
 };
 
 const displayController = (() => {
@@ -169,6 +189,9 @@ const displayController = (() => {
           item.appendChild(
             createSymbolMove(newGame.lastPlayerMoved().getSymbolNum())
           );
+          if(newGame.result() != 3){
+            console.log(newGame.getwinningMoves());
+          }
         } //we need the
         console.log(newGame.result());
       });
@@ -258,6 +281,7 @@ const displayController = (() => {
     if (attributeName) {
       element.setAttribute(attributeName, dataIndex);
     }
+
     return element;
   };
 
