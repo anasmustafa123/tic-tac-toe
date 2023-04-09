@@ -98,11 +98,28 @@ div.size-container-header {
   align-items: center;
 }
 
-.board-container > .board-part > img.game-component{
+svg.game-component{
   width: clamp(40px, 75% , 100px);
   height: clamp(40px, 75% , 100px);
+  transform: scale(1);
+  transition: 700ms ease-in-out;
 }
-
+g.winner{
+  fill: #1bf5af;
+  transition: 700ms ease-in-out;
+}
+g{
+  transition: 700ms ease-in-out;
+}
+svg.game-component.winner{
+  transform: scale(1) rotate3d(2, -1, -1,360deg) !important;
+  transition: 700ms;
+}
+svg.game-component.hide{
+  width: 0px;
+  height: 0px;
+  transform: scale(0);
+}
 .user-input-container {
   display: flex;
   position: fixed;

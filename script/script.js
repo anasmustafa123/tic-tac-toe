@@ -9,7 +9,7 @@ const player = (name, symbolNum) => {
 const game = (player1, player2, size) => {
   var lastMove = 2; /*means that player 1 will start*/
   let grid = size;
-  let winningMoves = []
+  let winningMoves = [];
   let gameBoard = new Array(grid * grid + 1);
 
   const result = () => {
@@ -18,10 +18,10 @@ const game = (player1, player2, size) => {
     else if (isWinner(player2.getSymbolNum())) return 2;
     else return 3;
   };
-  
-  const getwinningMoves=()=>{
+
+  const getwinningMoves = () => {
     return winningMoves;
-  }
+  };
   //return true if valid move
   const makeAMove = (playerMove) => {
     console.log(getwinningMoves());
@@ -68,8 +68,8 @@ const game = (player1, player2, size) => {
   const isDiagonalWinning = (symbolNum) => {
     let count1 = 0;
     let count2 = 0;
-    let winningMoves1 = []
-    let winningMoves2 = []
+    let winningMoves1 = [];
+    let winningMoves2 = [];
 
     for (let i = 0; i < grid; i++) {
       if (gameBoard[1 + grid * i + i] == symbolNum) {
@@ -85,17 +85,16 @@ const game = (player1, player2, size) => {
       winningMoves = winningMoves1;
       console.log("diagonal");
       return true;
-    }else if (count2 == grid){
+    } else if (count2 == grid) {
       winningMoves = winningMoves2;
       console.log("diagonal");
       return true;
-    }
-     else return false;
+    } else return false;
   };
   const isColumnsWinning = (symbolNum) => {
     for (let i = 1; i <= grid; i++) {
       let count = 0;
-      winningMoves = []
+      winningMoves = [];
       for (let j = i; j <= grid * grid; j += grid) {
         if (gameBoard[j] == symbolNum) {
           count++;
@@ -113,12 +112,12 @@ const game = (player1, player2, size) => {
   const isRowsWinning = (symbolNum) => {
     for (let i = 1; i < grid * grid; i += grid) {
       let count = 0;
-      winningMoves = []
+      winningMoves = [];
       for (let j = 0; j < grid; j++) {
         console.log(`///board[${i + j}] ${gameBoard[i + j]}`);
         if (gameBoard[i + j] == symbolNum) {
           count++;
-          winningMoves.push(i+j);
+          winningMoves.push(i + j);
         }
       }
       if (count == grid) {
@@ -179,22 +178,35 @@ const displayController = (() => {
   const startNewGame = (player1, player2, size) => {
     newGame = game(player1, player2, size);
     createBoard();
-
     const boardItems = document.querySelectorAll(".board-part");
+    let continueMove = true;
     boardItems.forEach((item) => {
       item.addEventListener("click", () => {
         let validMove = newGame.makeAMove(item.getAttribute("data-index"));
-        console.log(newGame.lastPlayerMoved());
-        if (validMove) {
+        if (validMove && continueMove == true) {
           item.appendChild(
             createSymbolMove(newGame.lastPlayerMoved().getSymbolNum())
           );
-          if(newGame.result() != 3){
-            console.log(newGame.getwinningMoves());
+          if (newGame.result() != 3) {
+            continueMove = false;
+            highlightWinning(newGame.getwinningMoves());
           }
         } //we need the
-        console.log(newGame.result());
       });
+    });
+  };
+
+  const highlightWinning = (winningMoves) => {
+    winningMoves.forEach((moveIndex) => {
+      const node = document.querySelector(`[data-index="${moveIndex}"]`);
+      if (node) {
+        const svg = node.querySelector("svg");
+        if (svg) {
+          const g = svg.querySelector("g");
+          g.classList.add("winner");
+          svg.classList.add("winner");
+        }
+      }
     });
   };
 
@@ -248,7 +260,6 @@ const displayController = (() => {
   };
 
   const createBoard = () => {
-    /*     console.log("entered createBoard"); */
     setBoardSize();
     for (let i = 1; i <= gameSize * gameSize; i++) {
       const boardPart = createNewElement("div", "board-part", "data-index", i);
@@ -271,10 +282,6 @@ const displayController = (() => {
   const show = (node) => {
     node.classList.remove("hide");
   };
-  const change = (node) => {
-    node.classList.add("change");
-  };
-
   const createNewElement = (type, className, attributeName, dataIndex) => {
     const element = document.createElement(type);
     element.classList.add(className);
