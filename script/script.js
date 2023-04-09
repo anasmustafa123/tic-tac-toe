@@ -286,12 +286,14 @@ const displayController = (() => {
   };
 
   const createSymbolMove = (symbolNum) => {
-    const symbol = createNewElement("img", "game-component", "", "");
+    let tempSymbol;
     if (symbolNum == 1) {
-      symbol.src = "./imgs/x.svg";
+      tempSymbol = document.querySelector("svg.game-component#v1");
     } else if (symbolNum == 2) {
-      symbol.src = "./imgs/o.svg";
+      tempSymbol = document.querySelector("svg.game-component#v2");
     }
+    const symbol = tempSymbol.cloneNode(true);
+    show(symbol);
     return symbol;
   };
   return { createBoard, startNewGame, getGameSize };
