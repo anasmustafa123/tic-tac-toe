@@ -3,48 +3,57 @@
   --dark-blue: #272343;
   --light-blue: #e3f6f5;
   --medium-blue: #bae8e8;
+  --warning-red: #ff0000;
   font-family: "Lemon", cursive;
 }
-
+.total-input-container{
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  background: var(--dark-blue);
+}
 .size-option-container {
   display: flex;
-  position: fixed;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%) scale(1);
-  width: 500px;
-  height: 250px;
-  gap: 0.5px;
-  z-index: 10;
-  transition: 300ms ease-in-out;
+  flex-direction: column;
+  width: clamp(150px,85%,500px);
+  height: clamp(150px,30%,300px); 
+  gap: 30px;
+  transition: 400ms ease-in-out;
 }
 .size-option-container.hide {
-  transform: translate(-50%, -50%) scale(0);
-  transition: 300ms ease-in-out;
+  transform: scale(0);
+  transition: 400ms ease-in-out;
+  width: 0;
+  height: 0;
 }
 div.size-container-header {
-  top: -102px;
-  position: absolute;
-  z-index: 12;
-  color: white;
-  left: 51px;
+  text-align: center;
+  color: var(--light-blue);
   font-weight: bolder;
-  font-size: 30px;
+  font-size: clamp(16px,3vw,30px);
   letter-spacing: 5px;
 }
-
-.size-option-container > button {
+.button-size-input{
+  display: flex;
+   width: 100%;
+  height: 100%; 
+}
+.button-size-input > button {
   width: 100%;
-  font-size: 2.7rem;
+  cursor: pointer;
+  font-size: clamp(15px,11vw,2.7rem);
   border: 1px solid var(--dark-blue);
   border-radius: 12px;
   background: var(--medium-blue);
 }
-.size-option-container > button:hover {
+.button-size-input > button:hover {
   background-color: lightblue;
   cursor: pointer;
 }
-.size-option-container > button:active {
+.button-size-input > button:active {
   background-color: var(--medium-blue);
 }
 
@@ -60,11 +69,11 @@ div.size-container-header {
   transition: 300ms ease-in-out;
   display: flex;
   justify-content: center;
+  align-items: center;
 }
 #overlay.hide {
   opacity: 0;
   pointer-events: none;
-  transition: 300ms ease-in-out;
 }
 
 .game-interface{
@@ -88,7 +97,6 @@ div.size-container-header {
 }
 .game-interface.hide{
   transform: scale(0);
-  transition: 300ms ease-in-out;
 }
 .board-container > .board-part{
   background-color: var(--dark-blue);
@@ -122,23 +130,18 @@ svg.game-component.hide{
 }
 .user-input-container {
   display: flex;
-  position: fixed;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%) scale(1);
-  width: auto;
-  height: auto;
-  z-index: 10;
-  transition: 600ms ease-in-out;
   align-items: center;
   gap: 32px;
   box-shadow: 0px 0px 5px 5px var(--light-blue);
   padding: 52px;
   border-radius: 32px;
+  transition: 400ms ease-in-out;
 }
+
 .user-input-container.hide {
-  transform: translate(-50%, -50%) scale(0);
-  transition: 300ms ease-in-out;
+  transform: scale(0);
+  width: 0;
+  height: 0;
 }
 .user-input1,
 .user-input2 {
@@ -172,10 +175,6 @@ svg.game-component.hide{
 }
 .start-game-button:active {
   background: var(--medium-blue);
-}
-
-:root {
-  margin: 50px;
 }
 
 .player1,
@@ -214,7 +213,7 @@ svg.game-component.hide{
   color: var(--dark-blue);
 }
 div.user-input-container div.symbol-error-message {
-  color: #ff0000;
+  color: var(--warning-red);
   align-self: center;
   margin-top: 32px;
   transform: scale(1);
@@ -222,5 +221,4 @@ div.user-input-container div.symbol-error-message {
 }
 div.user-input-container div.symbol-error-message.hide {
   transform: scale(0);
-  transition: 300ms ease-in-out;
 }

@@ -17,63 +17,68 @@
     <title>tic-tac-toe</title>
   </head>
   <body>
-    <div class="size-option-container">
-      <div class="size-container-header">choose board size</div>
-      <button data-size="3" class="size-choosing">3 &times; 3</button>
-      <button data-size="4" class="size-choosing">4 &times; 4</button>
-    </div>
-    <div class="user-input-container hide">
-      <div class="user-input1">
-        <input type="text" name="" id="" placeholder="player 1 name here..." />
-        <div class="player1">
-          <input
-            class="radio__input player1-x"
-            type="radio"
-            name="player1"
-            id="player1-x"
-            value="1"
-          />
-          <label class="radio__label" for="player1-x">x</label>
-          <input
-            class="radio__input player1-y"
-            type="radio"
-            name="player1"
-            id="player1-y"
-            value="2"
-          />
-          <label class="radio__label" for="player1-y">o</label>
+    <div class="total-input-container">
+      <div class="size-option-container">
+        <div class="size-container-header">choose board size</div>
+        <div class="button-size-input">
+          <button data-size="3" class="size-choosing">3 &times; 3</button>
+          <button data-size="4" class="size-choosing">4 &times; 4</button>
         </div>
-        <div class="symbol-error-message hide">choose a symbol</div>
       </div>
-      <button class="start-game-button">Start Game</button>
-      <div class="user-input2">
-        <input type="text" name="" id=" " placeholder="player 2 name here..." />
-        <div class="player2">
-          <input
-            class="radio__input player1-y"
-            type="radio"
-            name="player2"
-            id="player2-x"
-            value="1"
-          />
-          <label class="radio__label" for="player2-x">
-            <div>x</div>
-          </label>
-          <input
-            class="radio__input player1-x"
-            type="radio"
-            name="player2"
-            id="player2-y"
-            value="2"
-          />
-          <label class="radio__label" for="player2-y">
-            <div>o</div>
-          </label>
+      <div class="user-input-container hide">
+        <div class="user-input1">
+          <input type="text" name="" id="" placeholder="player 1 name here..." />
+          <div class="player1">
+            <input
+              class="radio__input player1-x"
+              type="radio"
+              name="player1"
+              id="player1-x"
+              value="1"
+            />
+            <label class="radio__label" for="player1-x">x</label>
+            <input
+              class="radio__input player1-y"
+              type="radio"
+              name="player1"
+              id="player1-y"
+              value="2"
+            />
+            <label class="radio__label" for="player1-y">o</label>
+          </div>
+          <div class="symbol-error-message hide">choose a symbol</div>
         </div>
-        <div class="symbol-error-message hide">choose a symbol</div>
+        <button class="start-game-button">Start Game</button>
+        <div class="user-input2">
+          <input type="text" name="" id=" " placeholder="player 2 name here..." />
+          <div class="player2">
+            <input
+              class="radio__input player1-y"
+              type="radio"
+              name="player2"
+              id="player2-x"
+              value="1"
+            />
+            <label class="radio__label" for="player2-x">
+              <div>x</div>
+            </label>
+            <input
+              class="radio__input player1-x"
+              type="radio"
+              name="player2"
+              id="player2-y"
+              value="2"
+            />
+            <label class="radio__label" for="player2-y">
+              <div>o</div>
+            </label>
+          </div>
+          <div class="symbol-error-message hide">choose a symbol</div>
+        </div>
       </div>
     </div>
-    <div id="overlay"></div>
+
+    <div id="overlay" class="hide"></div>
         <div class="game-interface hide">
             <svg class="game-component hide" id = "v2" version="1.0" xmlns="http://www.w3.org/2000/svg"
             width="0pt" height="0pt" viewBox="0 0 512.000000 512.000000"

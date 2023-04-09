@@ -145,13 +145,12 @@ const displayController = (() => {
   );
   const gameInterface = document.querySelector(".game-interface");
   const boardContainer = document.querySelector(".board-container");
-  const background = document.getElementById("overlay");
 
   let gameSize;
   let newGame;
 
   const startGameButton = document.querySelector(
-    ".user-input-container>.start-game-button"
+    "div.user-input-container > .start-game-button"
   );
 
   startGameButton.addEventListener("click", () => {
@@ -221,7 +220,6 @@ const displayController = (() => {
         gameSize = Number(button.getAttribute("data-size"));
         hide(sizeWindow);
         show(userInputInterface);
-        /*         console.log(gameSize); */
       });
     });
   };
@@ -245,7 +243,6 @@ const displayController = (() => {
         player2Symbol = (Number(option.value) + 1) % 3 || 1;
         /*         console.log(`player2sym : ${player2Symbol}`); */
         hide(userInputInterface);
-        hide(background);
         show(gameInterface);
         startNewGame(
           player(player1Name, player1Symbol),
