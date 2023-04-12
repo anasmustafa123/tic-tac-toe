@@ -16,7 +16,10 @@ Tic-Tac-Toe game to play with your friends  in the wep
 * __adding an ai as player2__
 # knowledge gained from the project
 practice using factory function 
+
 usefulness  of the module pattern
+
 improving my problem solving skills
+
 # contribution
 pull request are welcome.
