@@ -128,6 +128,7 @@ const game = (player1, player2, size) => {
     return false;
   };
   const clearGrid = () => {
+    winningMoves = [];
     gameBoard = new Array(grid * grid + 1);
   };
   return { makeAMove, clearGrid, result, lastPlayerMoved, getwinningMoves };
@@ -139,7 +140,7 @@ const displayController = (() => {
   const player2x = document.querySelector(".player2 #player2-x.player1-y");
   const player2y = document.querySelector(".player2 #player2-y.player1-x");
   const userInputInterface = document.querySelector(".user-input-container");
-
+  const tatalInputContainer = document.querySelector(".total-input-container");
   const error = document.querySelectorAll(
     "div.user-input-container div.symbol-error-message"
   );
@@ -178,19 +179,35 @@ const displayController = (() => {
     newGame = game(player1, player2, size);
     createBoard();
     const boardItems = document.querySelectorAll(".board-part");
+    const playerToMove = document.querySelector(".player-to-move");
+    const resetButton = document.querySelector("button.reset-play-again");
+    const player1InputField = document.querySelector(".player-data-container.player1-data  input");
+    const player2InputField = document.querySelector(".player-data-container.player2-data input");
     let continueMove = true;
+    player1InputField.value = player1.getName();
+    player2InputField.value = player2.getName(); 
+    playerToMove.textContent = player1.getName() + " to move";
+    resetButton.addEventListener("click", () => {
+      newGame.clearGrid();
+      clearGrid();
+      continueMove = true;
+      resetButton.textContent = "reset";
+      playerToMove.textContent = player1.getName() + " to move";
+    });
     boardItems.forEach((item) => {
       item.addEventListener("click", () => {
         let validMove = newGame.makeAMove(item.getAttribute("data-index"));
         if (validMove && continueMove == true) {
-          item.appendChild(
-            createSymbolMove(newGame.lastPlayerMoved().getSymbolNum())
-          );
+          const lastPlayerMoved = newGame.lastPlayerMoved();
+          if (lastPlayerMoved == player1)
+            playerToMove.textContent = player2.getName() + " to move";
+          else playerToMove.textContent = player1.getName() + " to move";
+          item.appendChild(createSymbolMove(lastPlayerMoved.getSymbolNum()));
           if (newGame.result() != 3) {
             continueMove = false;
             highlightWinning(newGame.getwinningMoves());
           }
-        } //we need the
+        }
       });
     });
   };
@@ -232,8 +249,6 @@ const displayController = (() => {
     );
     const player1Name = player1.value || "player1";
     const player2Name = player2.value || "player2";
-    /*     console.log(`PLAYER1Name : ${player1Name}`);
-      console.log(`PLAYER2Name : ${player2Name}`); */
     let player1Symbol;
     let player2Symbol;
     player1SymbolOptions.forEach((option) => {
@@ -242,7 +257,7 @@ const displayController = (() => {
         /*         console.log(`PLAYER1sym : ${player1Symbol}`); */
         player2Symbol = (Number(option.value) + 1) % 3 || 1;
         /*         console.log(`player2sym : ${player2Symbol}`); */
-        hide(userInputInterface);
+        hide(tatalInputContainer);
         show(gameInterface);
         startNewGame(
           player(player1Name, player1Symbol),
@@ -258,6 +273,7 @@ const displayController = (() => {
 
   const createBoard = () => {
     setBoardSize();
+    console.log("here");
     for (let i = 1; i <= gameSize * gameSize; i++) {
       const boardPart = createNewElement("div", "board-part", "data-index", i);
       boardContainer.appendChild(boardPart);
@@ -270,7 +286,10 @@ const displayController = (() => {
     board.style = `grid-template: repeat(${gameSize} ,1fr)  / repeat(${gameSize} ,1fr);`;
   };
   const clearGrid = () => {
-    boardContainer.innerHTML = "";
+    const gridItems = document.querySelectorAll(".board-part");
+    gridItems.forEach((item) => {
+      item.innerHTML = "";
+    });
   };
 
   const hide = (node) => {
@@ -285,7 +304,6 @@ const displayController = (() => {
     if (attributeName) {
       element.setAttribute(attributeName, dataIndex);
     }
-
     return element;
   };
 

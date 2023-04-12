@@ -4,7 +4,17 @@
   --light-blue: #e3f6f5;
   --medium-blue: #bae8e8;
   --warning-red: #ff0000;
+  --winning-color:#1bf5af;
   font-family: "Lemon", cursive;
+}
+.buffer-background {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  z-index: -1;
+  background: var(--medium-blue);
 }
 .total-input-container{
   display: flex;
@@ -14,6 +24,13 @@
   justify-content: center;
   align-items: center;
   background: var(--dark-blue);
+  transform: scale(1);
+}
+.total-input-container.hide {
+  transform: scale(0);
+  width: 0px;
+  height: 0px;
+  transition: 300ms ease-in-out;
 }
 .size-option-container {
   display: flex;
@@ -56,47 +73,99 @@ div.size-container-header {
 .button-size-input > button:active {
   background-color: var(--medium-blue);
 }
-
-#overlay {
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  left: 0;
-  opacity: 1;
-  background-color: var(--dark-blue);
-  pointer-events: all;
-  transition: 300ms ease-in-out;
+.game-option-result-container > .player-to-move-container {
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 10px;
+  border-radius: 8px;
+  cursor: context-menu;
+  color: var(--light-blue);
+  background: var(--dark-blue);
 }
-#overlay.hide {
-  opacity: 0;
-  pointer-events: none;
+.game-option-result-container > button.reset-play-again {
+  border-radius: 6px;
+  padding: 8px;
+  border: none;
+  cursor: pointer;
+  color: var(--light-blue);
+  background: var(--dark-blue);
 }
-
-.game-interface{
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  left: 0;
+.game-option-result-container > button.reset-play-again:active{
+  background-color: var(--light-blue);
+  color: var(--dark-blue);
+}
+.game-interface {
+  width: 100vw;
+  height: 100vh;
   transform: scale(1);
   transition: 300ms ease-in-out;
   background-color: var(--medium-blue);
   display: flex;
   justify-content: center;
+  align-items: center;
+}
+.player-data-container {
+  height: clamp(150px,47vh,500px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+.player-data-container > input[type="text"]{
+  padding: 5px;
+  border-radius: 9px;
+  background: transparent;
+  border: none;
+  text-align: center;
+  font-size: clamp(16px,1.8vw,22px);
+}
+.player-data-container > input[type="text"]:hover{
+  background-color: var(--light-blue);
+  text-align: initial;
+}
+.player-data-container>img {
+  width: clamp(90px,18vw,250px);
+  height: clamp(90px,18vw,250px);
+  align-self: center;
+}
+.game-option-result-container {
+  display: flex;
+  width: 100%;
+  justify-content: space-evenly;
+}
+.board-players {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 18px;
+    width: clamp(350px,50vw,500px);
+}
+
+.board-players input[type="text"]:hover {
+  background-color: var(--light-blue);
+  border-radius: 8px;
+}
+
+.board-players input[type="text"] {
+  height: clamp(16px,1.7vw,30px);
+  padding-left: 5%;
+  border: none;
+  background: transparent;
+  font-size: clamp(11px,1.4vw,16px);
+  margin-bottom: clamp(40px,5vw,80px);
+  width: 95%;
 }
 .board-container{
-  width: clamp(350px,50%,500px);
-  height: clamp(150px,50%,500px);
+  width: 100%;  
+  height: clamp(150px,47vw,500px);
   display: grid;
-  gap: 1px;
+  gap: 1.5px;
   margin: 16px;
 }
-.game-interface.hide{
+.game-interface.hide {
   transform: scale(0);
+  height: 0;
+  width: 0;
 }
 .board-container > .board-part{
   background-color: var(--dark-blue);
@@ -113,7 +182,7 @@ svg.game-component{
   transition: 700ms ease-in-out;
 }
 g.winner{
-  fill: #1bf5af;
+  fill: var(--winning-color);
   transition: 700ms ease-in-out;
 }
 g{

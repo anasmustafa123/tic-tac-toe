@@ -17,6 +17,7 @@
     <title>tic-tac-toe</title>
   </head>
   <body>
+    <div class="buffer-background"></div>
     <div class="total-input-container">
       <div class="size-option-container">
         <div class="size-container-header">choose board size</div>
@@ -144,7 +145,24 @@
           />
         </g>
       </svg>
-      <div class="board-container"></div>
+
+      <div class="player-data-container player1-data">
+        <input type="text" placeholder="player 1 name here..." />
+        <img src="./imgs/gamer1.png" alt="gamer img" />
+      </div>
+      <div class="board-players">
+        <div class="game-option-result-container">
+          <div class="player-to-move-container">
+            <div class="player-to-move">ahmed to move</div>
+          </div>
+          <button class="reset-play-again">reset</button>
+        </div>
+        <div class="board-container"></div>
+      </div>
+      <div class="player-data-container player2-data">
+        <input type="text" placeholder="player 2 name here..." />
+        <img src="./imgs/gamer2.png" alt="gamer img" />
+      </div>
     </div>
   </body>
 </html>
