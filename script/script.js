@@ -13,9 +13,9 @@ const game = (player1, player2, size) => {
   let gameBoard = new Array(grid * grid + 1);
 
   const result = () => {
-    if (isDraw()) return 0;
-    else if (isWinner(player1.getSymbolNum())) return 1;
+    if (isWinner(player1.getSymbolNum())) return 1;
     else if (isWinner(player2.getSymbolNum())) return 2;
+    else if (isDraw()) return 0;
     else return 3;
   };
 
@@ -24,7 +24,6 @@ const game = (player1, player2, size) => {
   };
   //return true if valid move
   const makeAMove = (playerMove) => {
-    console.log(getwinningMoves());
     if (playerMove <= grid * grid && !gameBoard[playerMove]) {
       /* check if clicked place is empty */
       if (lastMove === 1) {
@@ -32,7 +31,6 @@ const game = (player1, player2, size) => {
       } else {
         move(player1, playerMove);
       }
-      console.log(playerMove);
       return true;
     }
     return false;
@@ -55,6 +53,7 @@ const game = (player1, player2, size) => {
     for (let i = 1; i < gameBoard.length; i++) {
       if (!gameBoard[i]) return false;
     }
+    winningMoves = [];
     return true;
   };
   const isWinner = (symbolNum) => {
@@ -83,13 +82,13 @@ const game = (player1, player2, size) => {
     }
     if (count1 == grid) {
       winningMoves = winningMoves1;
-      console.log("diagonal");
       return true;
     } else if (count2 == grid) {
       winningMoves = winningMoves2;
-      console.log("diagonal");
       return true;
-    } else return false;
+    } else {
+      return false;
+    }
   };
   const isColumnsWinning = (symbolNum) => {
     for (let i = 1; i <= grid; i++) {
@@ -102,7 +101,6 @@ const game = (player1, player2, size) => {
         }
       }
       if (count == grid) {
-        console.log(`colunb ${count}`);
         return true;
       }
     }
@@ -114,19 +112,18 @@ const game = (player1, player2, size) => {
       let count = 0;
       winningMoves = [];
       for (let j = 0; j < grid; j++) {
-        console.log(`///board[${i + j}] ${gameBoard[i + j]}`);
         if (gameBoard[i + j] == symbolNum) {
           count++;
           winningMoves.push(i + j);
         }
       }
       if (count == grid) {
-        console.log("orw");
         return true;
       }
     }
     return false;
   };
+
   const clearGrid = () => {
     winningMoves = [];
     gameBoard = new Array(grid * grid + 1);
@@ -181,15 +178,21 @@ const displayController = (() => {
     const boardItems = document.querySelectorAll(".board-part");
     const playerToMove = document.querySelector(".player-to-move");
     const resetButton = document.querySelector("button.reset-play-again");
-    const player1InputField = document.querySelector(".player-data-container.player1-data  input");
-    const player2InputField = document.querySelector(".player-data-container.player2-data input");
+    const player1InputField = document.querySelector(
+      ".player-data-container.player1-data  input"
+    );
+    const player2InputField = document.querySelector(
+      ".player-data-container.player2-data input"
+    );
+    const gameResultWindow = document.querySelector(".game-result");
     let continueMove = true;
     player1InputField.value = player1.getName();
-    player2InputField.value = player2.getName(); 
+    player2InputField.value = player2.getName();
     playerToMove.textContent = player1.getName() + " to move";
     resetButton.addEventListener("click", () => {
       newGame.clearGrid();
       clearGrid();
+      hide(gameResultWindow);
       continueMove = true;
       resetButton.textContent = "reset";
       playerToMove.textContent = player1.getName() + " to move";
@@ -203,24 +206,48 @@ const displayController = (() => {
             playerToMove.textContent = player2.getName() + " to move";
           else playerToMove.textContent = player1.getName() + " to move";
           item.appendChild(createSymbolMove(lastPlayerMoved.getSymbolNum()));
-          if (newGame.result() != 3) {
+          //if player1 or player have won 
+          if (newGame.result() == 1 || newGame.result() == 2) {
+            show(gameResultWindow);
+            if(newGame.result() == 1){
+              gameResultWindow.textContent = (player1.getName() || "player1")+ " won";
+            }else{
+              gameResultWindow.textContent = (player2.getName() || "player2")+ " won";
+            }
+            highlightWinner(newGame.getwinningMoves(), "winner");
             continueMove = false;
-            highlightWinning(newGame.getwinningMoves());
+          } else if (newGame.result() == 0) {//if player2 won 
+            addClassToAll(boardItems, "draw");
+            show(gameResultWindow);
+            gameResultWindow.textContent = player2.getName()|| "draw";
+            continueMove = false;
           }
         }
       });
     });
   };
+  const addClassToAll = (items, classToAdd) => {
+    items.forEach((item) => {
+      if (item) {
+        const svg = item.querySelector("svg");
+        if (svg) {
+          const g = svg.querySelector("g");
+          g.classList.add(classToAdd);
+          svg.classList.add(classToAdd);
+        }
+      }
+    });
+  };
 
-  const highlightWinning = (winningMoves) => {
+  const highlightWinner = (winningMoves, classToAdd) => {
     winningMoves.forEach((moveIndex) => {
       const node = document.querySelector(`[data-index="${moveIndex}"]`);
       if (node) {
         const svg = node.querySelector("svg");
         if (svg) {
           const g = svg.querySelector("g");
-          g.classList.add("winner");
-          svg.classList.add("winner");
+          g.classList.add(classToAdd);
+          svg.classList.add(classToAdd);
         }
       }
     });
@@ -254,9 +281,7 @@ const displayController = (() => {
     player1SymbolOptions.forEach((option) => {
       if (option.checked) {
         player1Symbol = Number(option.value);
-        /*         console.log(`PLAYER1sym : ${player1Symbol}`); */
         player2Symbol = (Number(option.value) + 1) % 3 || 1;
-        /*         console.log(`player2sym : ${player2Symbol}`); */
         hide(tatalInputContainer);
         show(gameInterface);
         startNewGame(
@@ -264,7 +289,6 @@ const displayController = (() => {
           player(player2Name, player2Symbol),
           gameSize
         );
-        /*         console.log("end of getPlayerinput"); */
       } else {
         error.forEach((errorMessage) => show(errorMessage));
       }
@@ -273,7 +297,6 @@ const displayController = (() => {
 
   const createBoard = () => {
     setBoardSize();
-    console.log("here");
     for (let i = 1; i <= gameSize * gameSize; i++) {
       const boardPart = createNewElement("div", "board-part", "data-index", i);
       boardContainer.appendChild(boardPart);
@@ -281,10 +304,10 @@ const displayController = (() => {
   };
 
   const setBoardSize = () => {
-    console.log("entered ended");
     const board = document.querySelector(".board-container");
     board.style = `grid-template: repeat(${gameSize} ,1fr)  / repeat(${gameSize} ,1fr);`;
   };
+
   const clearGrid = () => {
     const gridItems = document.querySelectorAll(".board-part");
     gridItems.forEach((item) => {

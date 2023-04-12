@@ -83,6 +83,24 @@ div.size-container-header {
   color: var(--light-blue);
   background: var(--dark-blue);
 }
+
+.game-option-result-container > .game-result.hide{
+  transform: scale(0);
+  width: 0;
+}
+.game-option-result-container > .game-result{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  border-radius: 8px;
+  cursor: context-menu;
+  color: var(--light-blue);
+  background: var(--dark-blue);
+  transform: scale(1);
+  transition: 200ms ease-in-out;
+}
+
 .game-option-result-container > button.reset-play-again {
   border-radius: 6px;
   padding: 8px;
@@ -183,7 +201,9 @@ svg.game-component{
 }
 g.winner{
   fill: var(--winning-color);
-  transition: 700ms ease-in-out;
+}
+g.draw {
+  fill: #878e99d4;
 }
 g{
   transition: 700ms ease-in-out;
