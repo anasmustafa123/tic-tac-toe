@@ -4,7 +4,7 @@
 
 # tic-tac-toe
 did it as part of odin project curricurum
-
+## live demo is here <a href = "https://anasmustafa123.github.io/tic-tac-toe/">demo</a>
 # Description 
 Tic-Tac-Toe game to play with your friends  in the wep
 * __choosing between different levels__ 
