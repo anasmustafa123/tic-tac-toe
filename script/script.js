@@ -3,7 +3,10 @@ const player = (name, symbolNum) => {
   const getSymbolNum = () => {
     return symbolNum;
   };
-  return { getName, getSymbolNum };
+  const setName =(playerName)=>{
+    name = playerName;
+  }
+  return { getName, getSymbolNum, setName };
 };
 
 const game = (player1, player2, size) => {
@@ -219,7 +222,7 @@ const displayController = (() => {
           } else if (newGame.result() == 0) {//if player2 won 
             addClassToAll(boardItems, "draw");
             show(gameResultWindow);
-            gameResultWindow.textContent = player2.getName()|| "draw";
+            gameResultWindow.textContent = "draw";
             continueMove = false;
           }
         }
