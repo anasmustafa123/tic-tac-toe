@@ -6,6 +6,7 @@
   --warning-red: #ff0000;
   --winning-color:#1bf5af;
   font-family: "Lemon", cursive;
+  --input-font-size: clamp(11px,1.4vw,16px);
 }
 .buffer-background {
   position: fixed;
@@ -35,8 +36,8 @@
 .size-option-container {
   display: flex;
   flex-direction: column;
-  width: clamp(150px,85%,500px);
-  height: clamp(150px,30%,300px); 
+  width: clamp(150px,85%,650px);
+  height: clamp(150px,32%,450px);
   gap: 30px;
   transition: 400ms ease-in-out;
 }
@@ -66,6 +67,55 @@ div.size-container-header {
   border-radius: 12px;
   background: var(--medium-blue);
 }
+.button-size-input > button[data-size='3']{
+  position: relative;
+}
+.rules-container{
+  box-sizing: border-box;
+  background-color: white;
+  position: absolute;
+  font-size: 16px;
+  left: 0;
+  right: 0;
+  bottom: -35%;
+  transform: scale(1,0);
+  display: flex;
+  background-color: var(--light-blue);
+  color: var(--dark-blue);
+  transition: 100ms ease-in;
+  gap: 6px;
+  padding: 5px;
+}
+.rules-container > .rules-header{
+  align-self: center;
+}
+
+.rules-container > .rules{
+  font-size: 14px;
+  line-height: 19px;
+  word-spacing: 1.5px;
+}
+
+
+.button-size-input > button[data-size='3']::after{
+  content: "start";
+  position: absolute;
+  left:  0;
+  right: 0;
+  background: lightblue;
+  transition: 100ms ease-in-out;
+  transform: scale(0,1);
+  transition: transform 50ms ease-in;
+}
+.button-size-input > button[data-size='3']:hover::after{
+transform: scale(1,1);
+}
+.button-size-input > button[data-size='3']:hover .rules-container{
+  bottom: 0;
+  transform: scale(1,1);
+}
+
+
 .button-size-input > button:hover {
   background-color: lightblue;
   cursor: pointer;
@@ -220,12 +270,12 @@ svg.game-component.hide{
 .user-input-container {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: clamp(11px,3vw,22px);
   box-shadow: 0px 0px 5px 5px var(--light-blue);
-  padding: clamp(19px,5.7vw,60px);
+  padding: clamp(20px,5.5vw,50px);
   border-radius: 32px;
   transition: 400ms ease-in-out;
-  margin: 20px;
+  margin: 35px;
 }
 
 .user-input-container.hide {
@@ -238,6 +288,8 @@ svg.game-component.hide{
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  align-items: center;
+  width: clamp(45px,17vw,260px);
 }
 .user-input-container input {
   border-radius: 8px;
@@ -245,8 +297,8 @@ svg.game-component.hide{
   padding-left: 5%;
   border: none;
   background-color: var(--light-blue);
-  font-size: clamp(11px,1.4vw,16px);
-  margin-bottom: clamp(40px,5vw,80px);
+  font-size: var(--input-font-size);
+  margin-bottom: clamp(38px,5vw,80px);
   width: 95%;
 }
 .input-body {
@@ -256,7 +308,7 @@ svg.game-component.hide{
 .start-game-button {
   border-radius: 30px;
   height: clamp(32px,3.5vh,32px);
-  font-size: clamp(12px,1.35vw,17px);
+  font-size: var(--input-font-size);
   width: clamp(98px,12vw,135px);
   background: var(--medium-blue);
   color: var(--dark-blue);
@@ -272,10 +324,11 @@ svg.game-component.hide{
 
 .player1,
 .player2 {
-  display: inline-flex;
+  display: flex;
   overflow: hidden;
   border-radius: 15px;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.25);
+  width: 100%;
 }
 .radio__input {
   display: none;
@@ -283,7 +336,7 @@ svg.game-component.hide{
 
 .radio__label {
   box-sizing: border-box;
-  padding: 8px 14px;
+  padding: 8px 11px;
   background: var(--dark-blue);
   color: var(--light-blue);
   cursor: pointer;
@@ -297,7 +350,7 @@ svg.game-component.hide{
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: clamp(24px,6vw,80px);
+  font-size: clamp(20px,6vw,80px);
 }
 
 .radio__input:checked + .radio__label {
@@ -310,7 +363,7 @@ div.user-input-container div.symbol-error-message {
   margin-top: clamp(17px,20%,30px);
   transform: scale(1);
   transition: 300ms ease-in-out;
-  font-size: clamp(10px,1.45vw,19px);
+  font-size: var(--input-font-size);
 }
 div.user-input-container div.symbol-error-message.hide {
   transform: scale(0);
