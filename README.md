@@ -9,6 +9,7 @@ did it as part of odin project curricurum
 Tic-Tac-Toe game to play with your friends  in the wep
 * __choosing between different levels__ 
 * __clear button to clear the board__
+* __a bit responsive layout__
 ---
 ## features to do in the future
 * __adding a button to switch between windows__
@@ -20,6 +21,8 @@ practice using factory function
 usefulness  of the module pattern
 
 improving my problem solving skills
+
+improving my styling techniques
 
 # contribution
 pull request are welcome.
