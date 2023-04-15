@@ -6,7 +6,7 @@
   --warning-red: #ff0000;
   --winning-color:#1bf5af;
   font-family: "Lemon", cursive;
-  --input-font-size: clamp(11px,1.4vw,16px);
+  --input-font-size: clamp(11.5px,1.4vw,16px);
 }
 .buffer-background {
   position: fixed;
@@ -67,50 +67,32 @@ div.size-container-header {
   border-radius: 12px;
   background: var(--medium-blue);
 }
-.button-size-input > button[data-size='3']{
+.button-size-input > button[data-size]{
   position: relative;
 }
-.rules-container{
-  box-sizing: border-box;
-  background-color: white;
-  position: absolute;
-  font-size: 16px;
-  left: 0;
-  right: 0;
-  bottom: -35%;
-  transform: scale(1,0);
-  display: flex;
-  background-color: var(--light-blue);
-  color: var(--dark-blue);
-  transition: 100ms ease-in;
-  gap: 6px;
-  padding: 5px;
-}
-.rules-container > .rules-header{
-  align-self: center;
-}
 
-.rules-container > .rules{
-  font-size: 14px;
-  line-height: 19px;
-  word-spacing: 1.5px;
-}
-
-
-.button-size-input > button[data-size='3']::after{
+.button-size-input > button[data-size]::after{
   content: "start";
   position: absolute;
   left:  0;
   right: 0;
+  bottom: 0;
+  top: 0;
   background: lightblue;
   transition: 100ms ease-in-out;
   transform: scale(0,1);
   transition: transform 50ms ease-in;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-.button-size-input > button[data-size='3']:hover::after{
+.button-size-input > button[data-size]:hover::after{
 transform: scale(1,1);
 }
-.button-size-input > button[data-size='3']:hover .rules-container{
+.button-size-input > button[data-size]:active::after{
+  background-color: var(--medium-blue);
+  }
+.button-size-input > button[data-size]:hover .rules-container{
   bottom: 0;
   transform: scale(1,1);
 }
@@ -132,6 +114,7 @@ transform: scale(1,1);
   cursor: context-menu;
   color: var(--light-blue);
   background: var(--dark-blue);
+  font-size: var(--input-font-size);
 }
 
 .game-option-result-container > .game-result.hide{
@@ -158,6 +141,7 @@ transform: scale(1,1);
   cursor: pointer;
   color: var(--light-blue);
   background: var(--dark-blue);
+  font-size: var(--input-font-size);
 }
 .game-option-result-container > button.reset-play-again:active{
   background-color: var(--light-blue);
@@ -166,6 +150,7 @@ transform: scale(1,1);
 .game-interface {
   width: 100vw;
   height: 100vh;
+  overflow: hidden;
   transform: scale(1);
   transition: 300ms ease-in-out;
   background-color: var(--medium-blue);
@@ -173,11 +158,17 @@ transform: scale(1,1);
   justify-content: center;
   align-items: center;
 }
+.game-interface.hide {
+  transform: scale(0);
+  height: 0;
+  width: 0;
+}
 .player-data-container {
-  height: clamp(150px,47vh,500px);
+  height: clamp(120px,47vh,500px);
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
+  width: clamp(90px,25vw,500px);
 }
 .player-data-container > input[type="text"]{
   padding: 5px;
@@ -192,8 +183,8 @@ transform: scale(1,1);
   text-align: initial;
 }
 .player-data-container>img {
-  width: clamp(90px,18vw,250px);
-  height: clamp(90px,18vw,250px);
+  width: clamp(75px,17vw,250px);
+  height: clamp(75px,17vw,250px);
   align-self: center;
 }
 .game-option-result-container {
@@ -202,11 +193,11 @@ transform: scale(1,1);
   justify-content: space-evenly;
 }
 .board-players {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 18px;
-    width: clamp(350px,50vw,500px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  width: clamp(250px,50vw,500px);
 }
 
 .board-players input[type="text"]:hover {
@@ -230,11 +221,7 @@ transform: scale(1,1);
   gap: 1.5px;
   margin: 16px;
 }
-.game-interface.hide {
-  transform: scale(0);
-  height: 0;
-  width: 0;
-}
+
 .board-container > .board-part{
   background-color: var(--dark-blue);
   border-radius: 6px;
@@ -309,7 +296,7 @@ svg.game-component.hide{
   border-radius: 30px;
   height: clamp(32px,3.5vh,32px);
   font-size: var(--input-font-size);
-  width: clamp(98px,12vw,135px);
+  width: clamp(68px,12vw,135px);
   background: var(--medium-blue);
   color: var(--dark-blue);
   border: 2px solid var(--dark-blue);
