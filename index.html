@@ -18,6 +18,14 @@
     <title>tic-tac-toe</title>
   </head>
   <body>
+    <div class="overlay hide">
+      <div class="result-container hide">
+        <div class="game-result">player 1 won</div>
+        <div class="end-buttons">
+          <button class="reset-play-again">reset</button>
+        </div>
+      </div> 
+    </div>
     <div class="buffer-background"></div>
     <div class="total-input-container">
       <div class="size-option-container">
@@ -152,12 +160,10 @@
         <img src="./imgs/gamer1.png" alt="gamer img" />
       </div>
       <div class="board-players">
-        <div class="game-option-result-container">
+        <div class="game-option-container">
           <div class="player-to-move-container">
             <div class="player-to-move">ahmed to move</div>
           </div>
-          <div class="game-result hide">player 1 won</div>
-          <button class="reset-play-again">reset</button>
         </div>
         <div class="board-container"></div>
       </div>

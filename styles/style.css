@@ -105,7 +105,7 @@ transform: scale(1,1);
 .button-size-input > button:active {
   background-color: var(--medium-blue);
 }
-.game-option-result-container > .player-to-move-container {
+.game-option-container > .player-to-move-container {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -117,33 +117,66 @@ transform: scale(1,1);
   font-size: var(--input-font-size);
 }
 
-.game-option-result-container > .game-result.hide{
-  transform: scale(0);
-  width: 0;
-}
-.game-option-result-container > .game-result{
+.game-result{
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 10px;
+  width: 60%;
+  height: 50px;
   border-radius: 8px;
   cursor: context-menu;
   color: var(--light-blue);
   background: var(--dark-blue);
-  transform: scale(1);
-  transition: 200ms ease-in-out;
+  margin-left: auto;
+  margin-right: auto;
 }
-
-.game-option-result-container > button.reset-play-again {
+.overlay{
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  pointer-events: all;
+  background: rgba(2, 2, 26, 0.642);
+  z-index: 1;
+  transform: scale(1);
+  transition: transform 300ms ease-in-out ;
+}
+.overlay.hide{
+  transform: scale(0);
+  pointer-events: none;
+}
+.result-container{
+  width: clamp(250px,50vw,500px);
+  height: clamp(250px,50vw,250px);;
+  background: var(--light-blue);  
+  padding: clamp(14px,6vw,40px );
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  transform: scale(1);
+  transition: 1.5s ease-in-out;
+  border-radius: 15px;
+}
+.result-container.hide{
+  transform: scale(0);
+  width: 0;
+}
+button.reset-play-again {
   border-radius: 6px;
-  padding: 8px;
+  padding: 8px 18px 8px 18px;
   border: none;
   cursor: pointer;
   color: var(--light-blue);
   background: var(--dark-blue);
   font-size: var(--input-font-size);
 }
-.game-option-result-container > button.reset-play-again:active{
+button.reset-play-again:active{
   background-color: var(--light-blue);
   color: var(--dark-blue);
 }
@@ -187,7 +220,7 @@ transform: scale(1,1);
   height: clamp(75px,17vw,250px);
   align-self: center;
 }
-.game-option-result-container {
+.game-option-container {
   display: flex;
   width: 100%;
   justify-content: space-evenly;

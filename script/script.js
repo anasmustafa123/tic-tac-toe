@@ -188,6 +188,8 @@ const displayController = (() => {
       ".player-data-container.player2-data input"
     );
     const gameResultWindow = document.querySelector(".game-result");
+    const resultContainer = document.querySelector(".result-container");
+    const overlay = document.querySelector(".overlay");
     let continueMove = true;
     player1InputField.value = player1.getName();
     player2InputField.value = player2.getName();
@@ -195,7 +197,8 @@ const displayController = (() => {
     resetButton.addEventListener("click", () => {
       newGame.clearGrid();
       clearGrid();
-      hide(gameResultWindow);
+      hide(overlay);
+      hide(resultContainer);
       continueMove = true;
       resetButton.textContent = "reset";
       playerToMove.textContent = player1.getName() + " to move";
@@ -211,7 +214,8 @@ const displayController = (() => {
           item.appendChild(createSymbolMove(lastPlayerMoved.getSymbolNum()));
           //if player1 or player have won 
           if (newGame.result() == 1 || newGame.result() == 2) {
-            show(gameResultWindow);
+            show(overlay);
+            show(resultContainer);
             if(newGame.result() == 1){
               gameResultWindow.textContent = (player1.getName() || "player1")+ " won";
             }else{
@@ -221,7 +225,8 @@ const displayController = (() => {
             continueMove = false;
           } else if (newGame.result() == 0) {//if player2 won 
             addClassToAll(boardItems, "draw");
-            show(gameResultWindow);
+            show(overlay);
+            show(resultContainer);
             gameResultWindow.textContent = "draw";
             continueMove = false;
           }
